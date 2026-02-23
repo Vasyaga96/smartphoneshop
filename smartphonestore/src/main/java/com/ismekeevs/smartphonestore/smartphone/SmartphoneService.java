@@ -13,13 +13,11 @@ public class SmartphoneService {
     private final SmartphoneRepository smartphoneRepository;
 
     public Page<SmartphoneResponse> getSmartphones(Pageable pageable) {
-        return smartphoneRepository.findAll(pageable).map(SmartphoneResponse::fromEntity);
+        return smartphoneRepository.findAvailableSmartphones(pageable).map(SmartphoneResponse::fromEntity);
     }
-
-    public SmartphoneResponse getSmartphone(Integer id) {
-        Smartphone smartphone = smartphoneRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such smartphone"));
-        return SmartphoneResponse.fromEntity(smartphone);
+    public SmartphoneResponse getSmartphone(int id) {
+        return smartphoneRepository.findById(id).map(SmartphoneResponse::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Smartphone is not available"));
     }
 
 }

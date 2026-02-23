@@ -4,21 +4,24 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Smartphones")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Smartphone {
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Setter
     private String brand;
-    @Setter
     private String model;
-    @Setter
     private BigDecimal price;
+    private int stock;
+    private int reserved;
+
 }
