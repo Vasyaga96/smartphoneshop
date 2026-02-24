@@ -11,10 +11,17 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class SmartphoneService {
     private final SmartphoneRepository smartphoneRepository;
-
-    public Page<SmartphoneResponse> getSmartphones(Pageable pageable) {
+    //возврат активных смартфонов
+    public Page<SmartphoneResponse> getSmartphones(
+            String brand,
+            String model,
+            int minPrice,
+            int maxPrice,
+            Pageable pageable
+    ) {
         return smartphoneRepository.findAvailableSmartphones(pageable).map(SmartphoneResponse::fromEntity);
     }
+    //возврат одного смартфона
     public SmartphoneResponse getSmartphone(int id) {
         return smartphoneRepository.findById(id).map(SmartphoneResponse::fromEntity)
                 .orElseThrow(() -> new RuntimeException("Smartphone is not available"));

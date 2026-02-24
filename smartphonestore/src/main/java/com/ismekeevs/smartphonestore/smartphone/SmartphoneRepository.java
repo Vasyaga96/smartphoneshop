@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface SmartphoneRepository extends JpaRepository<Smartphone, Integer> {
-    /*Page<Smartphone> findAllByCategory(Category category, Pageable pageable);*/
+    //Метод для возврата активных смартфонов
     @Query("""
        SELECT s FROM Smartphone s
        WHERE s.stock > 0
        AND s.reserved < s.stock
+       AND (:brand IS NULL OR s.brand = :brand)
+       AND (:minPrice IS NULL OR s.price >= :minPrice)
+       AND (:maxPrice IS NULL OR s.price <= :maxPrice)
        """)
     Page<Smartphone> findAvailableSmartphones(Pageable pageable);
 

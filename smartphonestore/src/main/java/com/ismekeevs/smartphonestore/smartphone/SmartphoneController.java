@@ -16,8 +16,12 @@ public class SmartphoneController {
     @GetMapping
     public ResponseEntity<Page<SmartphoneResponse>> getSmartphones(
             @RequestParam(required = false) String brand,
-            Pageable pageable) {
-        return ResponseEntity.ok(smartphoneService.getSmartphones(pageable));
+            @RequestParam(required = false) String model,
+            @RequestParam(required = false) int minPrice,
+            @RequestParam(required = false) int maxPrice,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(smartphoneService.getSmartphones(brand, model, minPrice, maxPrice,pageable));
     }
 
 
