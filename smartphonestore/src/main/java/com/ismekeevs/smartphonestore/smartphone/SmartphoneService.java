@@ -15,11 +15,11 @@ public class SmartphoneService {
     public Page<SmartphoneResponse> getSmartphones(
             String brand,
             String model,
-            int minPrice,
-            int maxPrice,
+            Integer minPrice,
+            Integer maxPrice,
             Pageable pageable
     ) {
-        return smartphoneRepository.findAvailableSmartphones(pageable).map(SmartphoneResponse::fromEntity);
+        return smartphoneRepository.findAvailableSmartphones(brand, model, minPrice, maxPrice, pageable).map(SmartphoneResponse::fromEntity);
     }
     //возврат одного смартфона
     public SmartphoneResponse getSmartphone(int id) {

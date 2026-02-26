@@ -17,8 +17,8 @@ public class SmartphoneController {
     public ResponseEntity<Page<SmartphoneResponse>> getSmartphones(
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) String model,
-            @RequestParam(required = false) int minPrice,
-            @RequestParam(required = false) int maxPrice,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice,
             Pageable pageable
     ) {
         return ResponseEntity.ok(smartphoneService.getSmartphones(brand, model, minPrice, maxPrice,pageable));
